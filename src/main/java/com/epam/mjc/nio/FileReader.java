@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.logging.Logger;
 
 public class FileReader {
     private String name;
@@ -28,6 +28,7 @@ public class FileReader {
     public String getEmail() {
         return email;
     }
+    private static final Logger logger = Logger.getLogger( FileReader.class.getName());
 
     public Long getPhone() {
         return phone;
@@ -36,9 +37,6 @@ public class FileReader {
     public static Profile getDataFromFile(File file) {
         String fileData = readFileData(file);
         Map<String, String> keyValuePairs = parseKeyValuePairs(fileData);
-              //  for (Map.Entry<String, String> entry : keyValuePairs.entrySet()) {
-                    //String key = entry.getKey();
-                    //String value = entry.getValue();
         String name = keyValuePairs.get("Name");
         int age = Integer.parseInt(keyValuePairs.get("Age"));
         String email = keyValuePairs.get("Email");
@@ -56,7 +54,7 @@ public class FileReader {
                 buffer.clear();
             }
         } catch (Exception e) {
-            System.out.println("An error occurred: " + e.getMessage());
+            logger.severe("An error occurred: " + e.getMessage());
         }
         return sb.toString();
     }
@@ -76,23 +74,19 @@ public class FileReader {
     }
 
 
-    public void main(String[] args) {
-
+    public void main() {
         try {
             File file = new File("src/main/resources/Profile.txt");
             getDataFromFile(file);
-            System.out.println("Name: " + this.getName());
+            logger.severe("Name: " + this.getName());
             for (String s : Arrays.asList("Age: " + this.getAge(), "Email: " + this.getEmail(), "Phone: " + this.getPhone())) {
-                System.out.println(s);
+                logger.severe(s);
             }
 
 
         } catch (Exception e) {
-            System.out.println("An error occurred: " + e.getMessage());
-            System.out.println("Stack trace:");
-            for (StackTraceElement element : e.getStackTrace()) {
-                System.out.println(element.toString());
-            }
+            logger.severe("An error occurred: " + e.getMessage());
+
         }
 
     }
