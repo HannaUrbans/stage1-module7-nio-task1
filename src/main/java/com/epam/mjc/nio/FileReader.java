@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,7 +53,7 @@ public class FileReader {
             ByteBuffer buffer = ByteBuffer.allocate(1024);
             while (channel.read(buffer) != -1) {
                 buffer.flip();
-                sb.append(StandardCharsets.UTF_8.decode(buffer).toString());
+                sb.append(StandardCharsets.UTF_8.decode(buffer));
                 buffer.clear();
             }
         } catch (Exception e) {
@@ -76,15 +77,15 @@ public class FileReader {
     }
 
 
-    public void main(String[] args) throws IOException {
+    public void main(String[] args) {
 
         try {
             File file = new File("src/main/resources/Profile.txt");
-            Profile profile = getDataFromFile(file);
+            getDataFromFile(file);
             System.out.println("Name: " + this.getName());
-            System.out.println("Age: " + this.getAge());
-            System.out.println("Email: " + this.getEmail());
-            System.out.println("Phone: " + this.getPhone());
+            for (String s : Arrays.asList("Age: " + this.getAge(), "Email: " + this.getEmail(), "Phone: " + this.getPhone())) {
+                System.out.println(s);
+            }
 
 
         } catch (Exception e) {
