@@ -35,25 +35,15 @@ public class FileReader {
 
     public static Profile getDataFromFile(File file) {
         String fileData = readFileData(file);
-        try {
-            Map<String, String> keyValuePairs = parseKeyValuePairs(fileData);
-            {
-                for (Map.Entry<String, String> entry : keyValuePairs.entrySet()) {
+        Map<String, String> keyValuePairs = parseKeyValuePairs(fileData);
+              //  for (Map.Entry<String, String> entry : keyValuePairs.entrySet()) {
                     //String key = entry.getKey();
                     //String value = entry.getValue();
-                }
-            }
-            String name = keyValuePairs.get("Name");
-            int age = Integer.parseInt(keyValuePairs.get("Age"));
-            String email = keyValuePairs.get("Email");
-            long phone = Long.parseLong(keyValuePairs.get("Phone"));
-
-            return new Profile(name, age, email, phone);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+        String name = keyValuePairs.get("Name");
+        int age = Integer.parseInt(keyValuePairs.get("Age"));
+        String email = keyValuePairs.get("Email");
+        long phone = Long.parseLong(keyValuePairs.get("Phone"));
+        return new Profile(name, age, email, phone);}
 
     private static String readFileData(File file) {
         StringBuilder sb = new StringBuilder();
